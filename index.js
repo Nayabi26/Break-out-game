@@ -213,3 +213,23 @@ function draw()
 
 }
 draw();
+
+// Adding Full screen Feature
+document.addEventListener("keydown",
+
+(e)=>{
+    if(e.key==="Enter")
+    {
+        toggleFullScreen();
+    }
+},false)
+
+function toggleFullScreen(){
+    if(!document.fullscreenElement){
+        canvas.requestFullscreen().catch((err)=>{
+            alert(`Error attempting to enable fullscreen mode :${err.message} (${err.name})`)
+        })
+    }else{
+        document.exitFullscreen();
+    }
+}
