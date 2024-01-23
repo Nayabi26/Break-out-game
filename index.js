@@ -11,7 +11,7 @@ let dy=-2;
 
 //defining paddle Variables
 let paddleHeight=10;
-let paddleWidth=75;
+let paddleWidth=100;
 let paddleX= (canvas.width-paddleWidth)/2;
 
 //defining variable for level change
@@ -111,8 +111,8 @@ function collisionDetection()
                        brickStore();
                        x= canvas.width/2;
                        y= canvas.height-30;
-                       dx=1;
-                       dy=-1;
+                       dx=2;
+                       dy=-2;
                        paddleX = (canvas.width - paddleWidth) / 2;
                        score=0;
                         requestAnimationFrame(draw);
@@ -211,8 +211,8 @@ function draw()
        else{
             x= canvas.width/2;
             y= canvas.height-30;
-            dx=1;
-            dy=-1;
+            dx=2;
+            dy=-2;
             paddleX = (canvas.width - paddleWidth) / 2;
        }
         
@@ -228,8 +228,8 @@ function draw()
    {
     paddleX=Math.max(paddleX-7,0);
    }
-    x+=dx;
-    y+=dy;
+    x+=3*dx;
+    y+=3*dy;
     requestAnimationFrame(draw);
 
 }

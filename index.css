@@ -9,4 +9,5 @@
     border:2px solid grey;
     display:block;
     margin:0 auto;
+    overflow: visible;
 }
