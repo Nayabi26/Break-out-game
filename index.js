@@ -14,6 +14,9 @@ let paddleHeight=10;
 let paddleWidth=75;
 let paddleX= (canvas.width-paddleWidth)/2;
 
+//defining variable for level change
+let levelChange=1;
+
 //defining variables for moving paddle
 let rightPressed=false;
 let leftPressed=false;
@@ -26,7 +29,7 @@ document.addEventListener("keydown",keyDownHandler,false);
 document.addEventListener("keyup",keyUphandler,false);
 document.addEventListener("mousemove",mouseMoveHandler,false);
 //Defining variables for bricks
-const brickRowCount=1;
+let brickRowCount=1;
 const brickColumnCount=5;
 const brickWidth=75;
 const brickHeight=20;
@@ -42,13 +45,20 @@ let lives=3;
 
 //here we holding our bricks in a 2dimensional way , x and y is positions
 const bricks=[];
-for(let col=0;col<brickColumnCount;col++)
-{
-    bricks[col]=[];
-    for(let row=0;row<brickRowCount;row++){
-        bricks[col][row]={x:0,y:0,status:1}
+function brickStore(){
+    brickRowCount*=levelChange;
+    for(let col=0;col<brickColumnCount;col++)
+    {
+        bricks[col]=[];
+        for(let row=0;row<brickRowCount;row++){
+            bricks[col][row]={x:0,y:0,status:1}
+        }
     }
 }
+   
+// calling function brickStore
+brickStore();
+
 
 
 function keyDownHandler(e)
@@ -94,8 +104,17 @@ function collisionDetection()
                     brickObject.status=0;
                     score++;
                     if(score===brickColumnCount*brickRowCount){
-                        alert('YOU WIN !!!!!!  CONGRATULATIONS!!!!!');
-                        document.location.reload();
+                        alert(`YOU WIN Level : ${levelChange}  !!!!!!  CONGRATULATIONS!!!!!`);
+                        levelChange++;
+                       
+                     //  document.location.reload();
+                       brickStore();
+                       x= canvas.width/2;
+                       y= canvas.height-30;
+                       dx=1;
+                       dy=-1;
+                       paddleX = (canvas.width - paddleWidth) / 2;
+                       score=0;
                         requestAnimationFrame(draw);
                     }
                 }
@@ -138,6 +157,7 @@ function drawPaddle()
 }
 //drawing bricks
 function drawBricks(){
+  
     for(let col=0;col<brickColumnCount;col++)
     {
         for(let row=0;row<brickRowCount;row++)
@@ -167,6 +187,7 @@ function draw()
     collisionDetection();
     drawScore();
     drawLives();
+   
     if(x+dx>canvas.width-ballRadius || x+dx<ballRadius)
     {
         dx=-dx;
@@ -190,8 +211,8 @@ function draw()
        else{
             x= canvas.width/2;
             y= canvas.height-30;
-            dx=2;
-            dy=-2;
+            dx=1;
+            dy=-1;
             paddleX = (canvas.width - paddleWidth) / 2;
        }
         
